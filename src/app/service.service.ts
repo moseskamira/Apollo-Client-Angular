@@ -30,7 +30,6 @@ export class ServiceService {
 
   constructor(private apollo: Apollo) { }
 
-
   allAuthors(){
     return this.apollo.watchQuery<any>({
       query: this.fetchAllAuthors
