@@ -4,12 +4,7 @@ import gql from 'graphql-tag';
 import { Subscription } from 'rxjs';
 
 
-const findAllAuthors = gql`
-  query  findAllAuthors{
-    firstName
-    lastName
-  }
-`;
+
 
 
 @Component({
@@ -19,23 +14,30 @@ const findAllAuthors = gql`
 })
 export class AuthorComponent implements OnInit {
 
-  authorsList: any[]
-  private querySubscription: Subscription;
+  fetchAllAuthors = gql`query {
+    findAllAuthors {
+      firstName
+      lastName
+    }
+  }`
 
+  private querySubscription: Subscription;
+  authorsList: Object
+  
   constructor(private apollo: Apollo) { }
 
   ngOnInit() {
+    this.getAllAuthors()
 
   }
 
   getAllAuthors() {
     this.querySubscription = this.apollo.watchQuery<any>({
-      query: findAllAuthors
-
+      query: this.fetchAllAuthors
     }).valueChanges.subscribe(
-      data => {
-        // this.authorsList = data.findAllAuthors
-        console.log("AUTHORS ")
+      authorData => {
+        this.authorsList = authorData.data.findAllAuthors
+        console.log("AUTHOR "+this.authorsList)
       }
     )
   }
