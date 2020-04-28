@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Apollo} from 'apollo-angular';
-import gql from 'graphql-tag';
-import { Subscription } from 'rxjs';
+import { ServiceService } from '../service.service';
 
 
 
@@ -14,31 +12,32 @@ import { Subscription } from 'rxjs';
 })
 export class AuthorComponent implements OnInit {
 
-  fetchAllAuthors = gql`query {
-    findAllAuthors {
-      firstName
-      lastName
-    }
-  }`
-
-  private querySubscription: Subscription;
   authorsList: Object
-  
-  constructor(private apollo: Apollo) { }
+  availableBooksList: any[]
+  constructor(private service: ServiceService) { }
 
   ngOnInit() {
     this.getAllAuthors()
+    this.getAllAvailableBooks()
 
   }
 
   getAllAuthors() {
-    this.querySubscription = this.apollo.watchQuery<any>({
-      query: this.fetchAllAuthors
-    }).valueChanges.subscribe(
-      authorData => {
-        this.authorsList = authorData.data.findAllAuthors
-        console.log("AUTHOR "+this.authorsList)
+    this.service.allAuthors().valueChanges.subscribe(authorData => {
+      this.authorsList = authorData.data.findAllAuthors
+      console.log("AUTHOR "+this.authorsList)
+    })
+  }
+
+  getAllAvailableBooks() {
+    this.service.allAllAvailableBooks().valueChanges.subscribe(
+      bookData=> {
+        this.availableBooksList = bookData.data.findAllBooks
+        for(let book of this.availableBooksList) {
+          console.log("BOOKS "+book.title)
+        }
       }
+
     )
   }
 
