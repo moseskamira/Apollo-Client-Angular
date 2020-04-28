@@ -4,7 +4,6 @@ import { ServiceService } from '../service.service';
 
 
 
-
 @Component({
   selector: 'app-author',
   templateUrl: './author.component.html',
