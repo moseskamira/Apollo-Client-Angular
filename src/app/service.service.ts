@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
-
-  private querySubscription: Subscription;
 
   fetchAllAuthorsQuery = gql`query {
     findAllAuthors {
@@ -28,17 +26,33 @@ export class ServiceService {
     }
   }`
 
+  addNewAuthorMutation = gql`mutation($firstName: String!, $lastName: String!){
+    newAuthor(firstName: $firstName, lastName: $lastName){
+      firstName,
+      lastName
+    }
+  }`
+
   constructor(private apollo: Apollo) { }
 
-  allAuthors(){
+  getAllAuthorsNow(){
     return this.apollo.watchQuery<any>({
       query: this.fetchAllAuthorsQuery
     })
   }
 
-  allAllAvailableBooks() {
+  getAllAllAvailableBooksNow() {
     return this.apollo.watchQuery<any>({
       query: this.fetchAllBooksQuery
+    })
+  }
+
+public addAuthorNow = (fName: string, lName: string) => {
+    return this.apollo.mutate({
+      mutation: this.addNewAuthorMutation,
+      variables: {
+        firstName: fName, 
+        lastName: lName}
     })
   }
 
