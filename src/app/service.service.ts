@@ -10,14 +10,14 @@ export class ServiceService {
 
   private querySubscription: Subscription;
 
-  fetchAllAuthors = gql`query {
+  fetchAllAuthorsQuery = gql`query {
     findAllAuthors {
       firstName
       lastName
     }
   }`
 
-  fetchAllBooks = gql`query {
+  fetchAllBooksQuery = gql`query {
     findAllBooks{
       title
       author{
@@ -32,13 +32,13 @@ export class ServiceService {
 
   allAuthors(){
     return this.apollo.watchQuery<any>({
-      query: this.fetchAllAuthors
+      query: this.fetchAllAuthorsQuery
     })
   }
 
   allAllAvailableBooks() {
     return this.apollo.watchQuery<any>({
-      query: this.fetchAllBooks
+      query: this.fetchAllBooksQuery
     })
   }
 
