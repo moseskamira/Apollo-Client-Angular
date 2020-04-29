@@ -28,8 +28,10 @@ const addNewAuthorMutation = gql`mutation($first: String!, $last: String!){
   }
 }`
 
-const addNewBookMutation = gql`mutation($bookTitle: String!, $bookIsbn: String!, $bookPageCount: Int!, $bookAuthor: ID!){
-  newBook(title: $bookTitle, isbn: $bookIsbn, pageCount: $bookPageCount, author: $bookAuthor ) {
+const addNewBookMutation = gql`mutation($bookTitle: String!, $bookIsbn: String!, 
+  $bookPageCount: Int!, $bookAuthor: ID!){
+  newBook(title: $bookTitle, isbn: $bookIsbn, pageCount: $bookPageCount,
+     author: $bookAuthor ) {
     title
   }
 }`
@@ -42,24 +44,25 @@ export class ServiceService {
 
   constructor(private apollo: Apollo) { }
 
-  getAllAuthorsNow(){
+  getAllAuthorsNow = ()=>{
     return this.apollo.watchQuery<any>({
       query: fetchAllAuthorsQuery
     })
   }
 
-  getAllAllAvailableBooksNow() {
+  getAllAllAvailableBooksNow = ()=>{
     return this.apollo.watchQuery<any>({
       query: fetchAllBooksQuery
     })
   }
 
-  addAuthorNow(fName: string, lName: string) {
+  addAuthorNow = (fName: string, lName: string)=> {
     return this.apollo.mutate({
       mutation: addNewAuthorMutation,
       variables: {
         first: fName, 
-        last: lName}
+        last: lName
+      }
     })
   }
   
