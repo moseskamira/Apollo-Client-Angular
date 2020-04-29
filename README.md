@@ -2,6 +2,12 @@
 
 This project is intended to demo the implementation of Apollo Client in Angular.
 - It consumes an GraphQL API implemented in Spring Boot/Java.
+- Apollo Client is a client-side library suitable for handling the fetching and managing of data from a GraphQL API.
+
+## Technology Used:
+- Angular as a framework.
+- TypeScript as a programming language.
+- Apollo-Client as a library for handling data.
 
 ## Screenshots:
 - Query For Authors:
