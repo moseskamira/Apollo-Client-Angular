@@ -41,6 +41,7 @@ export class AuthorComponent implements OnInit {
     )
   }
 
+  
   createNewAuthor() {
     this.service.addAuthorNow(this.fname, this.lname).subscribe (
       myAuthor=> {
@@ -48,6 +49,5 @@ export class AuthorComponent implements OnInit {
       }
     )
   }
-
 
 }
