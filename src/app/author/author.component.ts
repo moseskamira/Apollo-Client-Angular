@@ -8,8 +8,7 @@ import { ServiceService } from '../service.service';
   styleUrls: ['./author.component.sass']
 })
 export class AuthorComponent implements OnInit {
-
-  authorsList: Object
+  authorsList: any[]
   availableBooksList: any[]
   fname: string = "Mehitebel"
   lname: string = "Zijjan"
@@ -24,7 +23,10 @@ export class AuthorComponent implements OnInit {
   getAllAuthors() {
     this.service.getAllAuthorsNow().valueChanges.subscribe(authorData => {
       this.authorsList = authorData.data.findAllAuthors
-      console.log("AUTHOR "+this.authorsList)
+
+      for(let author of this.authorsList) {
+        console.log("AUTHOR's FirstName:  "+ author.firstName)
+      }
     })
   }
 
@@ -33,7 +35,7 @@ export class AuthorComponent implements OnInit {
       bookData=> {
         this.availableBooksList = bookData.data.findAllBooks
         for(let book of this.availableBooksList) {
-          console.log("BOOKS "+book.title)
+          console.log("BOOK TITLE: "+book.title)
         }
       }
     )
