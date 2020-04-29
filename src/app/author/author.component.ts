@@ -2,9 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ServiceService } from '../service.service';
 
 
-
-
-
 @Component({
   selector: 'app-author',
   templateUrl: './author.component.html',
@@ -14,8 +11,8 @@ export class AuthorComponent implements OnInit {
 
   authorsList: Object
   availableBooksList: any[]
-  fname: string = "Watson"
-  lname: string = "Brandon"
+  fname: string = "Mehitebel"
+  lname: string = "Zijjan"
   constructor(private service: ServiceService) { }
 
   ngOnInit() {
